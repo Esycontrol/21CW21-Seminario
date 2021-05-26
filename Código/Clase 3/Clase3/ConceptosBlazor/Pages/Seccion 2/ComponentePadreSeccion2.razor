@@ -1,0 +1,30 @@
+﻿@typeparam Titem;
+
+<h3>Listado Genérico</h3>
+
+@if (Listado == null)
+{
+    @NoInstanciado;
+}else{
+    if (Listado.Count == 0)
+    {
+        @SinRegistros;
+    }else
+    {
+        foreach (var item in Listado)
+        {
+            @VisualizarComponente(item);
+        }
+
+    }
+}
+
+
+
+@code {
+    [Parameter] public List<Titem> Listado { get; set; }
+
+    [Parameter] public RenderFragment<Titem> VisualizarComponente { get; set; }
+    [Parameter] public RenderFragment SinRegistros { get; set; }
+    [Parameter] public RenderFragment NoInstanciado { get; set; }
+}

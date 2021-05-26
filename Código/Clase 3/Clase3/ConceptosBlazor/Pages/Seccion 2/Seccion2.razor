@@ -1,0 +1,38 @@
+﻿@page "/seccion2"
+@using ConceptosBlazor.Pages.Seccion_2
+
+<h3>Seccion 2 - Uso de MarkupStrings</h3>
+
+@((MarkupString)CodigoHTML)
+
+<h3>Sección -  Render Fragments</h3>
+
+<ComponentePadreSeccion2 Listado="miLista">
+    <NoInstanciado>
+        <Seccion2NoInstanciado></Seccion2NoInstanciado>
+    </NoInstanciado>
+    <SinRegistros>
+        <p>No Tengo Registros</p>
+    </SinRegistros>
+    <VisualizarComponente>
+        <OtroComponenteSeccion2 TextoAMostrar=@context> </OtroComponenteSeccion2>
+    </VisualizarComponente>
+</ComponentePadreSeccion2>
+
+
+@code {
+    List<string> miLista=new();
+
+    string CodigoHTML = "<H1>Titulo de prueba</H1>";
+
+    protected override void OnInitialized()
+    {
+        miLista.Add("Cadena 11");
+        miLista.Add("Cadena 22");
+        miLista.Add("Cadena 33");
+    }
+
+
+
+
+}
