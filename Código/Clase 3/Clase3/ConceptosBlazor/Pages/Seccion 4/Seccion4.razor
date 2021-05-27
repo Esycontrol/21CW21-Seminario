@@ -1,0 +1,17 @@
+﻿@page "/seccion4"
+@page "/seccion4/{miParametro1}"
+@page "/seccion4/{miParametro1}/{miParametro2:int}"
+
+
+<h3>Seccion 4 - Uso de parámetros</h3>
+
+<p>Parametro recibido: @miParametro1</p>
+<input type="number" @bind="miParametro2"/>
+
+<a href="/seccion4/CadenaDesdeHref">Enlace</a>
+
+@code {
+    [Parameter] public string miParametro1 { get; set; } = "";
+    [Parameter] public int miParametro2 { get; set; } = 0;
+
+}

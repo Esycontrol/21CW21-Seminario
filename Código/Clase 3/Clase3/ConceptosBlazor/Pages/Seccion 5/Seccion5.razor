@@ -1,0 +1,49 @@
+﻿@page "/seccion5"
+<h3>Seccion 5 - Formuularios de edición con EditForm</h3>
+
+<EditForm Model="@miPersona"
+          OnValidSubmit="ValidacionCorrecta"
+          OnInvalidSubmit="ValidacionIncorrecta">
+    <DataAnnotationsValidator />
+    <p></p>
+    Nombre: <InputText @bind-Value="@miPersona.Nombre" />
+    <ValidationMessage For="@(()=>miPersona.Nombre)" />
+    <p></p>
+    Edad: <InputNumber @bind-Value="@miPersona.Edad" />
+    <ValidationMessage For="@(()=>miPersona.Edad)" />
+    <p></p>
+    Email: <InputText @bind-Value="@miPersona.Email" />
+    <ValidationMessage For="@(()=>miPersona.Email)" />
+    <p></p>
+    Fecha Nacimiento: <InputDate @bind-Value="@miPersona.FechaNacimiento" />
+    <ValidationMessage For="@(()=>miPersona.FechaNacimiento)" />
+    <p></p>
+
+    <button type="submit">Validar</button>
+
+</EditForm>
+
+<textarea class="w-100" @bind="@Mensaje1"></textarea>
+
+@code {
+    Persona miPersona { get; set; } = new();
+
+    public string Mensaje1 { get; set; } = "";
+
+    void ValidacionIncorrecta()
+    {
+        Mensaje1 = "No se ha pasado la prueba de validación de datos";
+    }
+
+    void PulsadoSubmit()
+    {
+        Mensaje1 = "Submit pulsado";
+    }
+
+    void ValidacionCorrecta()
+    {
+        Mensaje1 = "Datos validados correctamente";
+    }
+
+
+}
