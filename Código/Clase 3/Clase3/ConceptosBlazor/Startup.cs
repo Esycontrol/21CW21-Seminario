@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ConceptosBlazor.Pages.Seccion_8;
 
 namespace ConceptosBlazor
 {
@@ -27,6 +28,8 @@ namespace ConceptosBlazor
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            services.AddSingleton<IVehiculo, Seccion8Moto>();
+            services.AddSingleton<Seccion8Coche>();
       
         }
 
