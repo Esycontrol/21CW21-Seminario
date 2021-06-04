@@ -1,0 +1,18 @@
+﻿<h3>Seccion9Parametros</h3>
+
+<p>nombre Recibido: @Nombre</p>
+
+@*@if (ParametrosAleatorios!=null)
+{
+    <p>Apellidos: @(ParametrosAleatorios["Apellidos"])</p>
+
+    <p>Edad: @(ParametrosAleatorios["Edad"])</p>*@
+
+    @*<button @attributes="ParametrosAleatorios">Botón</button>*@
+}
+
+@code {
+    [Parameter] public string Nombre { get; set; } = "";
+    //[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> ParametrosAleatorios { get; set; }
+
+}

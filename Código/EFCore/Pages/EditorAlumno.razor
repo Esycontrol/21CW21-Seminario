@@ -1,0 +1,88 @@
+﻿@page "/EditorAlumno"
+@using EFCore.Data;
+@inject MiDbContext Contexto;
+
+<h3>Editor Alumno</h3>
+
+<EditForm Model="MiAlumno"
+          OnValidSubmit="GuardarDatos">
+    <p>
+        Nombre:
+        <InputText @bind-Value="@MiAlumno.Nombre"></InputText>
+    </p>
+    <p>
+        Apellidos:
+        <InputText @bind-Value="@MiAlumno.Apellidos"></InputText>
+    </p>
+
+    <p>
+        Fecha de nacimiento:
+        <InputDate @bind-Value="@MiAlumno.FechaNacimiento"></InputDate>
+    </p>
+    <p>
+        DNI:
+        <InputText @bind-Value="@MiAlumno.DNI"></InputText>
+    </p>
+    <button type="submit">Guardar</button>
+
+</EditForm>
+
+<h4>Listado de Alumnos: </h4>
+
+@foreach (var item in Listado)
+	{
+<p>
+    Nombre Completo: @(item.Nombre) @(item.Apellidos) ; Fecha de Nacimiento: @(item.FechaNacimiento.ToString()) ; DNI: @(item.DNI)
+    <button @onclick="@(()=>EditarAlumno(item))">Editar</button>
+    <button @onclick="@(()=>BorrarAlumno(item))">Borrar</button>
+</p>
+	}
+
+
+
+@code {
+    public Alumno MiAlumno { get; set; } = new();
+    public List<Alumno> Listado { get; set; }
+
+    private void GuardarDatos()
+    {
+        bool ExisteRegistro = Contexto.Alumnos
+            .Where(alumno=>alumno.Id==MiAlumno.Id)
+            .Count()>0;
+
+        if (ExisteRegistro)
+        {
+            Contexto.Alumnos.Update(MiAlumno);
+        }
+        else
+        {
+            Contexto.Alumnos.Add(MiAlumno);
+        }
+
+        Contexto.SaveChanges();
+        MiAlumno = new();
+        LeerListado();
+    }
+
+    private void LeerListado()
+    {
+        Listado = Contexto.Alumnos.ToList();
+    }
+
+    protected override void OnInitialized()
+    {
+        LeerListado();
+    }
+    private void BorrarAlumno(Alumno miAlumno)
+    {
+        Contexto.Alumnos.Remove(miAlumno);
+        Contexto.SaveChanges();
+        LeerListado();
+    }
+    private void EditarAlumno(Alumno miAlumno)
+    {
+        MiAlumno = miAlumno;
+
+    }
+
+    }

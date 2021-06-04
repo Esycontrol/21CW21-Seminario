@@ -1,0 +1,26 @@
+﻿@page "/seccion11"
+
+
+<h3>Seccion 11 - acceso a datos con Entity Framework</h3>
+
+@foreach (var miPersona in PersonasFiltradas)
+{
+    <p>Nombre: @miPersona.Nombre</p>
+    <p>Apellido: @miPersona.Apellido</p>
+    <p>Edad: @miPersona.Edad</p>
+    <p>------------------------------------------</p>
+
+}
+
+<button class="btn-success" @onclick="DamePersonas">Personas menores de 3 años</button>
+
+<FormularioPersona>
+
+</FormularioPersona>
+
+@code {
+
+
+
+
+}

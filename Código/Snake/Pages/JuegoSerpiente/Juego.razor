@@ -1,0 +1,45 @@
+﻿@page "/"
+@using RedesNeuronales.Pages.JuegoSerpiente
+@inherits JuegoBase
+
+
+@*<h3>Tablero Juego</h3>*@
+
+@for (int y = PixelsAnchoTablero - 1; y >= 0; y--)
+{
+    <div class="row">
+        @for (int x = 0; x < PixelsAnchoTablero; x++)
+        {
+            @switch (Tablero[x, y])
+            {
+                case ETipoPunto.Libre:
+                    <div style="width:@TamañoPixelTablero;height:@TamañoPixelTablero; background-color:grey; border-color:grey;  border-style:solid; border-width:thin"></div>
+                    break;
+                case ETipoPunto.Manzana:
+                    <div style="width:@TamañoPixelTablero;height:@TamañoPixelTablero; background-color:green; border-color:green;  border-style:solid; border-width:thin"></div>
+                    break;
+                case ETipoPunto.Serpiente:
+                    <div style="width:@TamañoPixelTablero;height:@TamañoPixelTablero; background-color:blue; border-color:blue;  border-style:solid; border-width:thin"></div>
+                    break;
+                case ETipoPunto.Obstaculo:
+                    <div style="width:@TamañoPixelTablero;height:@TamañoPixelTablero; background-color:deeppink; border-color:deeppink;  border-style:solid; border-width:thin"></div>
+                    break;
+                default:
+                    <div style="width:@TamañoPixelTablero;height:@TamañoPixelTablero; background-color:grey; border-color:grey;  border-style:solid; border-width:thin"></div>
+                    break;
+            }
+
+
+        }
+    </div>
+
+}
+
+
+<button @onclick="IniciarPartida">Iniciar Partida</button>
+
+<p>Estado del juego: @estadoJuego</p>
+<p>Puntuación:@Puntuación</p>
+
+<input     @onkeydown="@TeclaPulsada" @ref="divTeclado"  />
+

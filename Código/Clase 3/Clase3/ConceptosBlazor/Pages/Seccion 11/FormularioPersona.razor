@@ -1,0 +1,64 @@
+﻿@inject miDbContext Contexto
+<h3>Formulario Alumno</h3>
+
+@foreach (var item in Listado)
+{
+    <p>Alumno: @(item.Nombre) @(item.Apellidos) con DNI: @(item.DNI) 
+    <button @onclick=@(()=>Editar(item))>Editar</button>
+    <button @onclick=@(()=>Borrar(item))>Borrar</button></p>
+}
+
+<EditForm Model="@EditorAlumno"
+          OnValidSubmit="GuardarAlumno">
+    <p>Nombre: </p>
+    <InputText @bind-Value="EditorAlumno.Nombre"></InputText>
+    <p>Apellidos: </p>
+    <InputText @bind-Value="EditorAlumno.Apellidos"></InputText>
+    <p>DNI: </p>
+    <InputText @bind-Value="EditorAlumno.DNI"></InputText>
+    <p></p>
+    <button type="submit">Guardar</button>
+
+</EditForm>
+
+@code {
+    public Alumno EditorAlumno { get; set; } = new();
+    public List<Alumno> Listado { get; set; } = new();
+
+    protected override void OnInitialized()
+    {
+        DameListaAlumnos();
+    }
+
+    private void GuardarAlumno()
+    {
+        if(Contexto.Alumnos.Where(miAlumno=>miAlumno.Id==EditorAlumno.Id).ToList().Count!=0)
+        {
+            Contexto.Alumnos.Update(EditorAlumno);
+        }
+        else
+        {
+            Contexto.Alumnos.Add(EditorAlumno);
+        }
+
+        Contexto.SaveChanges();
+        EditorAlumno = new();
+        DameListaAlumnos();
+    }
+
+    private void DameListaAlumnos()
+    {
+        Listado = Contexto.Alumnos.ToList();
+    }
+    private void Editar(Alumno alumno)
+    {
+        EditorAlumno = alumno;
+    }
+    private void Borrar(Alumno alumno)
+    {
+        Contexto.Alumnos.Remove(alumno);
+        Contexto.SaveChanges();
+        DameListaAlumnos();
+    }
+
+}

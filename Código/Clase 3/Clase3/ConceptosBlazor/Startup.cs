@@ -10,6 +10,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ConceptosBlazor.Pages.Seccion_8;
+using Syncfusion.Blazor;
+
+using ConceptosBlazor.Pages.Seccion_11;
+using Microsoft.EntityFrameworkCore;
 
 namespace ConceptosBlazor
 {
@@ -30,7 +34,11 @@ namespace ConceptosBlazor
             services.AddServerSideBlazor();
             services.AddSingleton<IVehiculo, Seccion8Moto>();
             services.AddSingleton<Seccion8Coche>();
-      
+            services.AddSyncfusionBlazor();
+
+            services.AddDbContext<miDbContext>(Options =>
+            Options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

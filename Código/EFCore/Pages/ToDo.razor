@@ -1,0 +1,67 @@
+﻿@page "/todo"
+@using EFCore.Data
+@inject MiDbContext _context
+
+
+
+<h3>ToDo</h3>
+
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <p><button @onclick="@(()=>_model.CrearLista())">Nueva Lista</button></p>
+            @if (_model.DameListas() != null)
+            {
+                @foreach (var item in _model.DameListas())
+                {
+                    <p @onclick="@(()=>ListaSeleccionada=item)">@item.Nombre</p>
+                }
+            }
+
+        </div>
+
+        <div class="col-4">
+            @if (ListaSeleccionada != null)
+            {
+                <p><button @onclick="@(()=>_model.CrearSubtareaDe(ListaSeleccionada))">Nueva subtarea</button></p>
+            }
+            @if (_model.DameSubtareasDe(ListaSeleccionada) != null)
+            {
+                @foreach (var item in _model.DameSubtareasDe(ListaSeleccionada))
+                {
+                    <p @onclick="@(()=>TareaSeleccionada=item)">@item.Nombre</p>
+                }
+            }
+
+        </div>
+
+        <div class="col-4">
+            @if (TareaSeleccionada != null)
+            {
+                <p><button @onclick="@(()=>_model.CrearSubtareaDe(TareaSeleccionada))">Nueva subtarea</button></p>
+            }
+            @if (_model.DameSubtareasDe(TareaSeleccionada) != null)
+            {
+                @foreach (var item in _model.DameSubtareasDe(TareaSeleccionada))
+                {
+                    <p>@item.Nombre</p>
+                }
+            }
+
+        </div>
+    </div>
+
+
+</div>
+
+@code {
+    public Tarea ListaSeleccionada { get; set; }
+    public Tarea TareaSeleccionada { get; set; }
+    private TodoVM _model;
+
+    protected override void OnInitialized()
+    {
+        _model = new(_context);
+    }
+
+}

@@ -1,0 +1,9 @@
+﻿<h3>Seccion 9 Nieto</h3>
+<p>Parametro recibido por el Nieto: @ValorRecibido </p>
+@*<p>Parametro entero recibido por el Nieto: @ValorRecibido2 </p>*@
+
+
+@code {
+    [CascadingParameter(Name = "Texto2")] public string ValorRecibido { get; set; } = "";
+    // [CascadingParameter] public int ValorRecibido2 { get; set; } = 0;
+}
